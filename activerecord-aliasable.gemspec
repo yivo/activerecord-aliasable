@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.test_files      = `git ls-files -z -- {test,spec,features}/*`.split("\x0")
   s.require_paths   = ['lib']
 
-  s.add_dependency 'confo-config', '>= 1.0.0'
   s.add_dependency 'activesupport', '>= 3.2.0'
   s.add_dependency 'activerecord', '>= 3.0'
+  s.add_dependency 'rails-i18n', '~> 4.0'
 end
