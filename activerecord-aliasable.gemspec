@@ -17,4 +17,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'activesupport', '>= 3.2.0'
   s.add_dependency 'activerecord', '>= 3.0'
   s.add_dependency 'rails-i18n', '~> 4.0'
+  s.add_dependency 'activerecord-traits', '~> 1.0.0'
 end

@@ -8,6 +8,7 @@ module Essay
       { is_aliasable: aliasable? }
     end
   end
+
   class AttributeFeatures
     def alias?
       model_class.attributes_marked_as_alias.include?(attribute_name)

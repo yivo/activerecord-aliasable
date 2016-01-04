@@ -31,8 +31,7 @@ module Aliasable
           default:           false,
           include_id:        false,
           always_regenerate: false,
-          from:              defined?(Traits) ?
-                               traits.attributes.first_where(type: :string).try(:name) : nil
+          from:              traits.attributes.first_where(type: :string).try(:name)
         )
 
         attr_names.each do |attr_name|
