@@ -54,14 +54,14 @@ module Aliasable
             end
 
             def options_for_#{attr_name}
-              self.class.alias_attributes[:#{attr_name}]
+              self.class.aliasable_options[:#{attr_name}]
             end
           BODY
 
           if options[:generate]
             class_eval <<-BODY, __FILE__, __LINE__ + 1
               def #{attr_name}
-                #{attr_name}_missing? ? self[:#{attr_name}] = assign_#{attr_name} : self[:#{attr_name}]
+                #{attr_name}_missing? ? assign_#{attr_name} : self[:#{attr_name}]
               end
 
               def assign_#{attr_name}!
