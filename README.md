@@ -1,10 +1,10 @@
 ```ruby
   class Article < ActiveRecord::Base
-    aliasable
+    # TODO Write example
   end
 ```
 
 ## Gemfile
 ```ruby
-gem 'activerecord-aliasable', github: 'yivo/activerecord-aliasable'
+gem 'activerecord-human-id', github: 'yivo/activerecord-human-id'
 ```
