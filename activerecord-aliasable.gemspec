@@ -1,11 +1,11 @@
 # encoding: utf-8
 Gem::Specification.new do |s|
-  s.name            = 'activerecord-aliasable'
+  s.name            = 'activerecord-human-id'
   s.version         = '1.0.0'
   s.authors         = ['Yaroslav Konoplov']
   s.email           = ['yaroslav@inbox.com']
-  s.summary         = 'ActiveRecord aliasable extension'
-  s.description     = 'ActiveRecord aliasable extension'
+  s.summary         = 'ActiveRecord human id'
+  s.description     = 'ActiveRecord human id'
   s.homepage        = 'http://github.com/yivo/activerecord-aliasable'
   s.license         = 'MIT'
 

@@ -1,7 +1,7 @@
 module HumanID
   module ColumnTypes
     def human_id(*args)
-      options         = args.extract_options!.reverse_merge!(null: false, default: '')
+      options         = args.extract_options!
       options[:index] = options[:index] == false ?
         false :
         (options[:index] || {}).reverse_merge!(unique: true)
