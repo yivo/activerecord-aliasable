@@ -77,6 +77,14 @@ module HumanID
                 HumanID.valid?(self.#{attr_name}) == false
             end
           BODY
+
+          if options[:param]
+            class_eval <<-BODY, __FILE__, __LINE__ + 1
+              def to_param
+                self.#{attr_name}
+              end
+            BODY
+          end
         end
 
         all_options = self.human_id_options = self.human_id_options.dup

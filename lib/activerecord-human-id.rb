@@ -28,6 +28,8 @@ module HumanID
     # If set to false: human id will be refreshed only when it's value is blank
     refresh: false,
 
+    param: false,
+
     # By default format will be guessed from:
     #   - first attribute of string type
     #   - primary key attribute
