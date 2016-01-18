@@ -2,9 +2,12 @@ module HumanID
   module ColumnTypes
     def human_id(*args)
       options         = args.extract_options!
-      options[:index] = options[:index] == false ?
-        false :
-        (options[:index] || {}).reverse_merge!(unique: true)
+      options[:index] = case options[:index]
+        when true  then { unique: true }
+        when false then false
+        else            (options[:index] || {}).reverse_merge!(unique: true)
+      end
+
       args.each { |name| column(name, :string, options) }
     end
 
