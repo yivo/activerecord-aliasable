@@ -20,6 +20,10 @@ module HumanID
         # trailing and inner) with HumanID.separator
         UnicodeTools.replace_whitespace!(str, separator)
 
+        # Fix for Rails format in routes
+        # http://coding-journal.com/rails-3-routing-parameters-with-dots/
+        str.gsub! '.', separator
+
         # Strip leading and trailing separators
         str.gsub! surrounding_separators_regex, ''
 
