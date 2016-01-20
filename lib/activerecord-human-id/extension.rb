@@ -26,7 +26,7 @@ module HumanID
 
         val                   = options[:validations]
         options[:validations] = case val
-          when Hash  then val.reverse_merge!(HumanID.default_options[:validations])
+          when Hash  then val.reverse_merge!(HumanID::Extension.default_options[:validations])
           when Array then %i( format uniqueness ).each_with_object({}) { |el, obj| obj[el] = val.include?(el) }
           else            { format: !!val, uniqueness: !!val }
         end
