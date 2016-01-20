@@ -9,6 +9,8 @@ module HumanID
       #   => 'Пушкин,_Александр_Сергеевич'
       #
       def perform(str)
+        separator = behaviour.separator
+
         str = str.join(separator) if str.is_a?(Array)
 
         # This doesn't require comments
@@ -19,10 +21,10 @@ module HumanID
         UnicodeTools.replace_whitespace!(str, separator)
 
         # Strip leading and trailing separators
-        str.gsub! @re_surrounding_separators, ''
+        str.gsub! surrounding_separators_regex, ''
 
         # Replace two or more separator sequence with one separator: '__' => '_'
-        str.gsub! @re_separator_sequence, separator
+        str.gsub! separator_sequence_regex, separator
 
         str
       end
@@ -39,14 +41,28 @@ module HumanID
         true
       end
 
+      def behaviour
+        Behaviour.instance
+      end
+
+      attr_accessor :surrounding_separators_regex, :separator_sequence_regex
+    end
+
+    class Behaviour
+      include Singleton
+
       attr_accessor :separator
+
+      def initialize
+        self.separator = '_'
+      end
 
       def separator=(new_sep)
         @separator = new_sep
 
         # Rebuild separator regexps
-        @re_surrounding_separators = /(\A#{new_sep}+)|(#{new_sep}+\z)/
-        @re_separator_sequence     = /#{new_sep}+/
+        HumanID::Canonicalization.surrounding_separators_regex = /(\A#{new_sep}+)|(#{new_sep}+\z)/
+        HumanID::Canonicalization.separator_sequence_regex     = /#{new_sep}+/
 
         new_sep
       end
@@ -57,8 +73,6 @@ module HumanID
         super 'Human ID is malformed'
       end
     end
-
-    self.separator = '_'
   end
 
   class << self
