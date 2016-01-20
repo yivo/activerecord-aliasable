@@ -22,7 +22,7 @@ module HumanID
         str.gsub! @re_surrounding_separators, ''
 
         # Replace two or more separator sequence with one separator: '__' => '_'
-        str.gsub! @re_separator_sequence, '_'
+        str.gsub! @re_separator_sequence, separator
 
         str
       end
