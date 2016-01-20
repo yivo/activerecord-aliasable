@@ -9,8 +9,8 @@ module HumanID
             when Array then handy_pattern
 
             # compile(:name)
-            #   => { method: :name }
-            when Symbol then { method: handy_pattern }
+            #   => [{ method: :name }]
+            when Symbol then [{ method: handy_pattern }]
 
             # compile(':id_:name')
             #   => [ [{method: :id}, {string: '_'}, {method: :name}] ]
