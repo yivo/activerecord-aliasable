@@ -15,12 +15,20 @@ class Essay::AttributeFeatures
   end
 
   class HumanID < Base
-    def permanent?
-      !!options[:permanent]
+    def persists?
+      !!options[:persist]
     end
 
-    def save?
-      !!options[:save]
+    def updates_manually?
+      options[:update] == :manual
+    end
+
+    def updates_automatically?
+      !updates_manually?
+    end
+
+    def updates_if_blank?
+      options[:update] == :if_blank
     end
 
     def options

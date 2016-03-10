@@ -5,7 +5,8 @@ task 'human_id:regenerate' => :environment do
 
   Traits.each do |traits|
     attributes = traits.attributes.select do |attr|
-      attr.features.human_id? && attr.features.human_id.save?
+      human_id = attr.features.human_id
+      human_id && human_id.persists? && human_id.updates_automatically?
     end
 
     next if attributes.empty?
@@ -16,7 +17,7 @@ task 'human_id:regenerate' => :environment do
       attributes.each do |attr|
         current = attr.value_from(model)
 
-        next if !force && current.present? && attr.features.human_id.permanent?
+        next if !force && !model.send("need_to_update_#{attr.name}?")
 
         new = model.send("generate_#{attr.name}")
 

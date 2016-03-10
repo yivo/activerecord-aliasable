@@ -8,6 +8,12 @@ module HumanID
           data    = HumanID::Extension::Pattern.result(pattern, model)
           HumanID.engine(options[:engine]).perform(data)
         end
+
+        def ready_to_generate?(model)
+          # Sometimes human id depends on record id or timestamps.
+          # When record isn't persisted human id will be generated wrong.
+          model.persisted?
+        end
       end
     end
   end

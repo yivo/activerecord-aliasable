@@ -2,12 +2,12 @@ module HumanID
   module Extension
     class Builder
       def initialize(model_class, options)
-        @model                  = model_class
-        @param                  = options[:param]
-        @save                   = options[:save]
-        @validations            = options[:validations]
-        @format_validation      = @validations[:format]
-        @uniqueness_validation  = @validations[:uniqueness]
+        @model                 = model_class
+        @param                 = options[:param]
+        @persists              = options[:persist]
+        @validations           = options[:validations]
+        @validates_format      = @validations[:format]
+        @validates_uniqueness  = @validations[:uniqueness]
       end
 
       def build(human_id)
@@ -15,15 +15,15 @@ module HumanID
 
         define_base_methods
 
-        if @save
+        if @persists
           define_persistence_methods
           add_persistence_callbacks
         else
           define_human_id_accessor
         end
 
-        add_format_validation     if @format_validation
-        add_uniqueness_validation if @uniqueness_validation
+        add_format_validation     if @validates_format
+        add_uniqueness_validation if @validates_uniqueness
 
         define_to_param_method if @param
       end
@@ -43,8 +43,8 @@ module HumanID
 
       def define_persistence_methods
         @model.class_eval <<-BODY, __FILE__, __LINE__ + 1
-          def need_to_assign_#{@human_id}?
-            HumanID::Extension::Persistence.need_to_assign?(:#{@human_id}, self)
+          def need_to_update_#{@human_id}?
+            HumanID::Extension::Persistence.need_to_update?(:#{@human_id}, self)
           end
 
           def assign_#{@human_id}!
@@ -76,8 +76,8 @@ module HumanID
       end
 
       def add_persistence_callbacks
-        @model.before_validation :"assign_#{@human_id}",  if: :"need_to_assign_#{@human_id}?"
-        @model.after_save        :"assign_#{@human_id}!", if: :"need_to_assign_#{@human_id}?"
+        @model.before_validation :"assign_#{@human_id}",  if: :"need_to_update_#{@human_id}?"
+        @model.after_save        :"assign_#{@human_id}!", if: :"need_to_update_#{@human_id}?"
       end
 
       def add_uniqueness_validation

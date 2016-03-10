@@ -10,7 +10,7 @@ module HumanID
         instance_accessor: false, instance_predicate: false
 
       # Hash of options for each defined human id:
-      #   => { alias: { generate: true, ... }, key: { generate: false, ... } }
+      #   => { alias: { pattern: [:id, :name], ... }, key: { pattern: [:id, :name], ... } }
       self.human_id_options              = {}
 
       self.attributes_marked_as_human_id = []
