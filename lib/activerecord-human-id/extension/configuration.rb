@@ -25,14 +25,14 @@ module HumanID
       # If set to false: method will not be defined
       param: false,
 
-      # If set to true:  human id will be generated with HumanID::Transliteration.perform
-      # If set to false: human id will be refreshed with HumanID::Canonicalization.perform
-      transliterate: false,
+      # Chose what engine should be used to perform human id generation
+      engine: :transliteration,
 
       # If set to true:  human id will be refreshed on each save
       # If set to false: human id will be refreshed only when it's value is blank
       permanent: false,
 
+      # TODO Write description
       save: true
     }
   end

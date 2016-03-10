@@ -6,12 +6,7 @@ module HumanID
           options = model.send("options_for_#{human_id}")
           pattern = options.fetch(:compiled_pattern)
           data    = HumanID::Extension::Pattern.result(pattern, model)
-
-          if options[:transliterate]
-            HumanID::Transliteration.perform(data)
-          else
-            HumanID::Canonicalization.perform(data)
-          end
+          HumanID.engine(options[:engine]).perform(data)
         end
       end
     end

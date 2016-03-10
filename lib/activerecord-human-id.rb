@@ -20,6 +20,14 @@ require 'activerecord-human-id/essay' if defined?(Essay)
 
 require 'activerecord-human-id/engine'
 
+module HumanID
+  class << self
+    def engine(engine = :transliteration)
+      engine == :canonicalization ? Canonicalization : Transliteration
+    end
+  end
+end
+
 module ActiveRecord
   Base.include HumanID::Extension
   ConnectionAdapters::TableDefinition.include HumanID::ColumnTypes
