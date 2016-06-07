@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module HumanID
   module Canonicalization
     class << self
@@ -14,23 +15,21 @@ module HumanID
         str = str.join(separator) if str.is_a?(Array)
 
         # This doesn't require comments
-        UnicodeTools.strip_bidi_override_chars!(str)
+        str = UnicodeTools.strip_bidi_override_chars(str)
 
         # Replace all whitespace characters (including leading,
         # trailing and inner) with HumanID.separator
-        UnicodeTools.replace_whitespace!(str, separator)
+        str = UnicodeTools.replace_whitespace(str, separator)
 
         # Fix for Rails format in routes
         # http://coding-journal.com/rails-3-routing-parameters-with-dots/
-        str.gsub! '.', separator
+        str = str.tr('.', separator)
 
         # Strip leading and trailing separators
-        str.gsub! surrounding_separators_regex, ''
+        str = str.gsub(surrounding_separators_regex, '')
 
         # Replace two or more separator sequence with one separator: '__' => '_'
-        str.gsub! separator_sequence_regex, separator
-
-        str
+        str.gsub(separator_sequence_regex, separator)
       end
 
       def valid?(human_id)

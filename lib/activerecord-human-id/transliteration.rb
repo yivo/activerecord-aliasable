@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module HumanID
   module Transliteration
     class << self
@@ -24,14 +25,14 @@ module HumanID
         str = str.join(separator) if str.is_a?(Array)
         str = I18n.transliterate(str)
 
-        str.downcase! if downcase
+        str = str.downcase if downcase
 
         if normalize
           # Strip leading and trailing non-word and non-ASCII characters
-          str.gsub!(/(\A\W+)|(\W+\z)/, '')
+          str = str.gsub(/(\A\W+)|(\W+\z)/, '')
 
           # Replace the rest of non-word and non-ASCII characters with hyphen
-          str.gsub!(/\W+/, separator)
+          str = str.gsub(/\W+/, separator)
         end
 
         str

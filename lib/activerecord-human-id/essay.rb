@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Essay::AttributeFeatures
   def human_id?
     model_class.attributes_marked_as_human_id.include?(attribute_name)
