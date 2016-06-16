@@ -22,8 +22,11 @@ module HumanID
             # compile('article_:id')
             #   => [ [{string: 'article_'}, {method: :id}] ]
             #
-            # http://rubular.com/r/rHxp8IvOdB
-            else [handy_pattern.scan(/(\w+)|(:\w+(?<!_))/).flatten.compact.map do |el|
+            # http://rubular.com/r/AJFnJbmBRo
+            #
+            # http://stackoverflow.com/questions/16398471/regex-not-ending-with
+            # ?<! - not ending with
+            else [handy_pattern.scan(/([\w-]+)|(:\w+(?<![_-]))/).flatten.compact.map do |el|
               el.start_with?(':') ? { method: el[1..-1].to_sym } : { string: el }
             end]
           end
