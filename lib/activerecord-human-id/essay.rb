@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 class Essay::AttributeFeatures
   def human_id?
-    model_class.attributes_marked_as_human_id.include?(attribute_name)
+    active_record.attributes_marked_as_human_id.include?(attribute.name)
   end
 
   def human_id
@@ -9,10 +9,8 @@ class Essay::AttributeFeatures
   end
 
   serialize do
-    {
-      is_human_id: human_id?,
-      human_id:    human_id.try(:to_hash)
-    }
+    { is_human_id: human_id?,
+      human_id:    human_id.try(:to_hash) }
   end
 
   class HumanID < Base
@@ -33,7 +31,7 @@ class Essay::AttributeFeatures
     end
 
     def options
-      model_class.human_id_options.fetch(attribute_name)
+      active_record.human_id_options.fetch(attribute.name)
     end
   end
 end
