@@ -7,7 +7,8 @@ module HumanID
           if Generation.ready_to_generate?(model)
             new_value = model.send("generate_#{human_id}")
             if model.send(human_id) != new_value
-              model.send("#{human_id}=", new_value)
+              model[human_id] = new_value
+              model.update_column(human_id, new_value)
               model.save!
             end
           end
