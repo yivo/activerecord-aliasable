@@ -1,4 +1,6 @@
+# encoding: utf-8
 # frozen_string_literal: true
+
 class Essay::AttributeFeatures
   def human_id?
     active_record.attributes_marked_as_human_id.include?(attribute.name)

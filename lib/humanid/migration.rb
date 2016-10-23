@@ -1,6 +1,8 @@
+# encoding: utf-8
 # frozen_string_literal: true
+
 module HumanID
-  module ColumnTypes
+  module Migration
     def human_id(*args)
       options         = args.extract_options!
       options[:index] = case options[:index]
