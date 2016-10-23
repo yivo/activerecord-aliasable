@@ -11,7 +11,7 @@ task 'human_id:regenerate' => :environment do
 
     next if attributes.empty?
 
-    traits.model_class.find_each do |model|
+    traits.active_record.find_each do |model|
       puts "Processing #{traits.class_name}##{traits.primary_key_attribute.value_from(model)}"
       changes = 0
       attributes.each do |attr|
