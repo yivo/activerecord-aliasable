@@ -38,5 +38,5 @@ class ActiveRecord::Base
 end
 
 class ActiveRecord::ConnectionAdapters::TableDefinition
-  include HumanID::ColumnTypes
+  include HumanID::Migration
 end
