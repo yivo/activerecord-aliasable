@@ -79,8 +79,8 @@ module HumanID
       end
 
       def add_persistence_callbacks
+        @model.after_create      :"assign_#{@human_id}!", if: :"need_to_update_#{@human_id}?"
         @model.before_validation :"assign_#{@human_id}",  if: :"need_to_update_#{@human_id}?"
-        @model.after_save        :"assign_#{@human_id}!", if: :"need_to_update_#{@human_id}?"
       end
 
       def add_uniqueness_validation
