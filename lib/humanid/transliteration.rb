@@ -30,16 +30,21 @@ module HumanID
         str = str.downcase if downcase
 
         if normalize
-          # Strip leading and trailing non-word and non-ASCII characters
-          str = str.gsub(/(\A\W+)|(\W+\z)/, '')
 
-          # Replace the rest of non-word and non-ASCII characters with hyphen
-          str = str.gsub(/\W+/, separator)
+          # Replace non-word and non-ASCII characters with hyphens.
+          str = str.gsub(/\W/, '-')
+
+          # Strip leading and trailing hyphens.
+          str = str.gsub(/(\A-+)|(-+\z)/, '')
+
+          # Collapse hyphens.
+          str = str.gsub(/-+/, '-')
+
         end
 
         str
       ensure
-        I18n.default_locale = previous_locale
+        I18n.locale = previous_locale
       end
 
 
